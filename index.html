@@ -3,100 +3,116 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CateKids</title>
+<title>CateKids — Sistema de Inscripción</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --azul:#1a3a5c;--azulm:#2563a8;--azulc:#dbeafe;
-  --verde:#16a34a;--verdec:#dcfce7;
-  --rojo:#dc2626;--rojoc:#fee2e2;
-  --dorado:#f59e0b;--doradoc:#fef3c7;
-  --morado:#7c3aed;--moradoc:#ede9fe;
-  --naranja:#ea580c;--naranjac:#ffedd5;
-  --gris:#f8fafc;--borde:#e2e8f0;--txt:#1e293b;--txt2:#64748b;
-  --r:12px;--sh:0 2px 12px rgba(0,0,0,.08);
+  --az:#1a3a5c;--azm:#2563a8;--azc:#dbeafe;
+  --ve:#16a34a;--vec:#dcfce7;
+  --ro:#dc2626;--roc:#fee2e2;
+  --do:#f59e0b;--doc:#fef3c7;
+  --mo:#7c3aed;--moc:#ede9fe;
+  --na:#ea580c;--nac:#ffedd5;
+  --gr:#f8fafc;--bo:#e2e8f0;--tx:#1e293b;--t2:#64748b;
+  --rd:12px;--sh:0 2px 12px rgba(0,0,0,.08);
 }
-body{font-family:Nunito,sans-serif;background:linear-gradient(135deg,#e0f2fe,#f0fdf4,#fef9ee);min-height:100vh;color:var(--txt)}
-header{background:var(--azul);position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(26,58,92,.3)}
-.hdr{display:flex;align-items:center;justify-content:space-between;max-width:1400px;margin:0 auto;padding:10px 20px;gap:12px}
+body{font-family:Nunito,sans-serif;background:linear-gradient(135deg,#e0f2fe,#f0fdf4,#fef9ee);min-height:100vh;color:var(--tx)}
+header{background:var(--az);position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(26,58,92,.3)}
+.hdr{display:flex;align-items:center;justify-content:space-between;max-width:1400px;margin:0 auto;padding:10px 20px;gap:12px;flex-wrap:wrap}
 .logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .logo img{width:42px;height:42px;border-radius:9px;object-fit:contain}
 .logo h1{font-family:'Fredoka One',cursive;color:#fff;font-size:20px;line-height:1}
 .logo p{color:#93c5fd;font-size:11px;font-weight:600}
-.nav{display:flex;gap:3px}
-.nb{padding:7px 13px;border:none;border-radius:8px;cursor:pointer;font-family:Nunito,sans-serif;font-size:13px;font-weight:700;color:#93c5fd;background:transparent;transition:all .2s;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.nav{display:flex;gap:3px;flex-wrap:wrap}
+.nb{padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-family:Nunito,sans-serif;font-size:13px;font-weight:700;color:#93c5fd;background:transparent;transition:all .2s;display:flex;align-items:center;gap:5px;white-space:nowrap}
 .nb:hover{background:rgba(255,255,255,.1);color:#fff}
-.nb.on{background:#fff;color:var(--azul)}
+.nb.on{background:#fff;color:var(--az)}
 main{max-width:1400px;margin:0 auto;padding:16px}
 .sec{display:none}.sec.on{display:block}
-/* CARD */
-.card{background:#fff;border-radius:var(--r);box-shadow:var(--sh)}
-/* BTNS */
-.btn{padding:8px 16px;border:none;border-radius:9px;cursor:pointer;font-family:Nunito,sans-serif;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:5px;transition:all .2s;text-decoration:none}
-.bp{background:var(--azulm);color:#fff}.bp:hover{background:var(--azul)}
-.bs{background:var(--verde);color:#fff}.bs:hover{background:#15803d}
-.bw{background:var(--dorado);color:#fff}
-.bo{background:#fff;color:var(--azulm);border:2px solid var(--azulm)}.bo:hover{background:var(--azulc)}
-.br{background:var(--rojo);color:#fff}
-/* TABLE */
+.card{background:#fff;border-radius:var(--rd);box-shadow:var(--sh)}
+.btn{padding:8px 16px;border:none;border-radius:9px;cursor:pointer;font-family:Nunito,sans-serif;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:5px;transition:all .2s;text-decoration:none;white-space:nowrap}
+.bp{background:var(--azm);color:#fff}.bp:hover{background:var(--az)}
+.bs{background:var(--ve);color:#fff}.bs:hover{background:#15803d}
+.bw{background:var(--do);color:#fff}.bw:hover{background:#d97706}
+.bo{background:#fff;color:var(--azm);border:2px solid var(--azm)}.bo:hover{background:var(--azc)}
+.br{background:var(--ro);color:#fff}
 .tw{overflow-x:auto}
 table{width:100%;border-collapse:collapse;min-width:600px}
-thead{background:var(--azul)}
+thead{background:var(--az)}
 th{padding:10px 12px;text-align:left;font-size:12px;font-weight:700;color:#fff;white-space:nowrap}
-tbody tr{border-bottom:1px solid var(--borde);transition:background .15s}
+tbody tr{border-bottom:1px solid var(--bo);transition:background .15s}
 tbody tr:hover{background:#f8faff}
 td{padding:8px 12px;font-size:13px}
-/* BADGES */
 .bg{display:inline-block;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:800;white-space:nowrap}
-.bi{background:var(--azulc);color:var(--azulm)}
-.bc{background:var(--moradoc);color:var(--morado)}
-.bco{background:var(--verdec);color:var(--verde)}
-.bp2{background:var(--naranjac);color:var(--naranja)}
-.bps{background:var(--doradoc);color:#92400e}
+.bi{background:var(--azc);color:var(--azm)}
+.bc{background:var(--moc);color:var(--mo)}
+.bco{background:var(--vec);color:var(--ve)}
+.bp2{background:var(--nac);color:var(--na)}
+.bps{background:var(--doc);color:#92400e}
 /* FORM */
 .fg{display:flex;flex-direction:column;gap:4px}
-.fg label{font-size:11px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.5px}
-.fg input,.fg select{padding:9px 11px;border:2px solid var(--borde);border-radius:8px;font-family:Nunito,sans-serif;font-size:13px;outline:none;transition:border-color .2s;background:var(--gris);width:100%}
-.fg input:focus,.fg select:focus{border-color:var(--azulm);background:#fff}
+.fg label{font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px}
+.fg input,.fg select,.fg textarea{padding:8px 11px;border:2px solid var(--bo);border-radius:8px;font-family:Nunito,sans-serif;font-size:13px;outline:none;transition:border-color .2s;background:var(--gr);width:100%}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--azm);background:#fff}
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fg3{grid-template-columns:1fr 1fr 1fr}
 .full{grid-column:1/-1}
-.slbl{font-size:11px;font-weight:800;color:var(--azul);text-transform:uppercase;letter-spacing:1px;padding-bottom:5px;border-bottom:2px solid var(--azulc);grid-column:1/-1;margin-top:6px}
+.slbl{font-size:11px;font-weight:800;color:var(--az);text-transform:uppercase;letter-spacing:1px;padding-bottom:5px;border-bottom:2px solid var(--azc);grid-column:1/-1;margin-top:8px;display:flex;align-items:center;gap:6px}
 /* MODAL */
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;display:none;align-items:center;justify-content:center;padding:14px}
 .ov.on{display:flex}
-.modal{background:#fff;border-radius:16px;width:100%;max-width:680px;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2)}
-.mh{background:var(--azul);color:#fff;padding:16px 20px;border-radius:16px 16px 0 0;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.modal{background:#fff;border-radius:16px;width:100%;max-width:720px;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.mh{background:var(--az);color:#fff;padding:16px 20px;border-radius:16px 16px 0 0;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
 .mh h2{font-size:16px;font-weight:800;display:flex;align-items:center;gap:7px}
 .mx{background:rgba(255,255,255,.2);border:none;border-radius:7px;color:#fff;width:28px;height:28px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center}
-.mb{padding:20px}.mf{padding:12px 20px;border-top:2px solid var(--borde);display:flex;gap:8px;justify-content:flex-end;position:sticky;bottom:0;background:#fff}
-/* DASH */
-.pcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:18px}
-.pcard{background:#fff;border-radius:var(--r);padding:14px;box-shadow:var(--sh);cursor:pointer;text-align:center;border-top:4px solid;transition:all .2s}
+.mb{padding:20px}.mf{padding:12px 20px;border-top:2px solid var(--bo);display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;position:sticky;bottom:0;background:#fff}
+/* FILE UPLOAD */
+.fileup{border:2px dashed var(--bo);border-radius:8px;padding:12px;text-align:center;cursor:pointer;background:var(--gr);transition:all .2s;position:relative}
+.fileup:hover{border-color:var(--azm);background:var(--azc)}
+.fileup input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.fileup .fi{font-size:22px;margin-bottom:4px}
+.fileup p{font-size:12px;color:var(--t2);font-weight:600}
+.fileup .fn{font-size:11px;color:var(--ve);font-weight:700;margin-top:3px;word-break:break-all}
+.fileup.has{border-color:var(--ve);background:var(--vec)}
+/* DOC GRID */
+.docgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.doccard{border:2px solid var(--bo);border-radius:9px;overflow:hidden;background:#fff;transition:box-shadow .2s}
+.dchead{padding:7px 10px;font-size:11px;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:space-between}
+.dcprev{width:100%;height:110px;object-fit:cover;cursor:pointer;display:block}
+.dcpdf{height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;text-decoration:none;color:#92400e;background:#fef9ee;font-size:12px;font-weight:700}
+.dcup{height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;position:relative;background:var(--gr)}
+.dcup input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.dcfoot{padding:7px 8px;display:flex;gap:5px;border-top:1px solid var(--bo)}
+/* DASHBOARD */
+.pcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-bottom:16px}
+.pcard{background:#fff;border-radius:var(--rd);padding:13px;box-shadow:var(--sh);cursor:pointer;text-align:center;border-top:4px solid;transition:all .2s}
 .pcard:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.12)}
-.pnum{font-family:'Fredoka One',cursive;font-size:30px;line-height:1.1}
-.plbl{font-size:11px;font-weight:700;color:var(--txt2);text-transform:uppercase}
-.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px}
-.gcard{background:#fff;border-radius:var(--r);padding:11px;box-shadow:var(--sh);cursor:pointer;border:2px solid var(--borde);transition:all .2s}
-.gcard:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.1)}
-.gcard.lleno{border-color:var(--rojo);background:#fff5f5}
-.gcard.casi{border-color:var(--dorado)}
-.gname{font-family:'Fredoka One',cursive;font-size:16px}
-.gnum{font-size:21px;font-weight:900}
-.bbar{height:5px;background:var(--borde);border-radius:4px;margin-top:5px;overflow:hidden}
+.pnum{font-family:'Fredoka One',cursive;font-size:28px;line-height:1.1}
+.plbl{font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase}
+.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:9px}
+.gcard{background:#fff;border-radius:var(--rd);padding:10px;box-shadow:var(--sh);cursor:pointer;border:2px solid var(--bo);transition:all .2s}
+.gcard:hover{transform:translateY(-2px);box-shadow:0 5px 16px rgba(0,0,0,.1)}
+.gcard.lleno{border-color:var(--ro);background:#fff5f5}
+.gcard.casi{border-color:var(--do)}
+.gname{font-family:'Fredoka One',cursive;font-size:15px}
+.gnum{font-size:20px;font-weight:900}
+.bbar{height:4px;background:var(--bo);border-radius:4px;margin-top:4px;overflow:hidden}
 .bfill{height:100%;border-radius:4px;transition:width .5s}
 /* TICKET */
 .tklayout{display:grid;grid-template-columns:290px 1fr;gap:14px}
-@media(max-width:680px){.tklayout{grid-template-columns:1fr}.fgrid{grid-template-columns:1fr}}
-/* TABS INTERNAS */
-.itabs{display:flex;gap:4px;margin-bottom:14px}
-.itab{padding:6px 14px;border:none;border-radius:8px;cursor:pointer;font-family:Nunito,sans-serif;font-size:13px;font-weight:700;background:var(--gris);color:var(--txt2);transition:all .2s}
-.itab.on{background:var(--azul);color:#fff}
+@media(max-width:680px){.tklayout{grid-template-columns:1fr}.fgrid,.fg3{grid-template-columns:1fr}}
+/* LIGHTBOX */
+#lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:2000;align-items:center;justify-content:center;flex-direction:column;gap:10px}
+#lb.on{display:flex}
+#lb img{max-width:90vw;max-height:85vh;border-radius:8px}
+#lb iframe{width:85vw;height:85vh;border:none;border-radius:8px}
 /* TOAST */
-#toast{position:fixed;bottom:18px;right:18px;z-index:9999;background:var(--azul);color:#fff;padding:10px 16px;border-radius:10px;font-size:13px;font-weight:700;box-shadow:0 4px 18px rgba(0,0,0,.2);transform:translateY(80px);opacity:0;transition:all .3s;max-width:290px}
+#toast{position:fixed;bottom:16px;right:16px;z-index:9999;background:var(--az);color:#fff;padding:10px 16px;border-radius:10px;font-size:13px;font-weight:700;box-shadow:0 4px 18px rgba(0,0,0,.2);transform:translateY(80px);opacity:0;transition:all .3s;max-width:280px}
 #toast.on{transform:translateY(0);opacity:1}
-#toast.ok{background:var(--verde)}#toast.err{background:var(--rojo)}
-.msg{padding:28px;text-align:center;color:var(--txt2);font-size:13px;font-weight:700}
+#toast.ok{background:var(--ve)}#toast.err{background:var(--ro)}
+.msg{padding:26px;text-align:center;color:var(--t2);font-size:13px;font-weight:700}
 </style>
 </head>
 <body>
@@ -118,69 +134,73 @@ td{padding:8px 12px;font-size:13px}
 
 <!-- ═══ DATOS ═══ -->
 <section id="datos" class="sec on">
-  <div class="card" style="padding:14px;margin-bottom:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+  <div class="card" style="padding:13px;margin-bottom:13px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
     <input id="busqD" type="text" placeholder="🔍 Buscar en DATOS..."
-      style="flex:1;min-width:180px;padding:8px 12px;border:2px solid var(--borde);border-radius:9px;font-family:Nunito,sans-serif;font-size:13px;outline:none"
+      style="flex:1;min-width:160px;padding:8px 12px;border:2px solid var(--bo);border-radius:9px;font-family:Nunito,sans-serif;font-size:13px;outline:none"
       oninput="debD()" onkeydown="if(event.key==='Enter')buscarD()">
     <button class="btn bp" onclick="buscarD()">Buscar</button>
     <button class="btn bo" onclick="cargarDatos()">↺ Actualizar</button>
+    <button class="btn bw" onclick="exportarExcel('datos')">📥 Excel</button>
+    <button class="btn bw" onclick="exportarPDF('datos')">📄 PDF</button>
   </div>
   <div class="card" style="overflow:hidden">
-    <div style="padding:12px 16px;border-bottom:2px solid var(--borde);display:flex;align-items:center;justify-content:space-between">
-      <span id="titD" style="font-weight:800;font-size:14px;color:var(--azul)">📋 Hoja DATOS</span>
-      <span style="font-size:12px;color:var(--txt2)">Click en <strong>Promover → REGISTRO</strong> para inscribir formalmente</span>
+    <div style="padding:11px 15px;border-bottom:2px solid var(--bo);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+      <span id="titD" style="font-weight:800;font-size:14px;color:var(--az)">📋 Hoja DATOS</span>
+      <span style="font-size:12px;color:var(--t2)">Presiona <strong>➡️ Promover</strong> para inscribir en REGISTRO</span>
     </div>
-    <div class="tw"><table>
-      <thead><tr><th>Grupo</th><th>Nombre</th><th>Catequista</th><th>Mamá</th><th>Pago</th><th>Acción</th></tr></thead>
-      <tbody id="tbD"><tr><td colspan="6" class="msg">⏳ Cargando DATOS...</td></tr></tbody>
+    <div class="tw"><table id="tblDatos">
+      <thead><tr><th>Grupo</th><th>Nombre</th><th>Catequista</th><th>Mamá / Tel</th><th>Pago</th><th>Docs</th><th>Acción</th></tr></thead>
+      <tbody id="tbD"><tr><td colspan="7" class="msg">⏳ Cargando...</td></tr></tbody>
     </table></div>
   </div>
 </section>
 
 <!-- ═══ REGISTRO ═══ -->
 <section id="registro" class="sec">
-  <div class="card" style="padding:14px;margin-bottom:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+  <div class="card" style="padding:13px;margin-bottom:13px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
     <input id="busqR" type="text" placeholder="🔍 Buscar en REGISTRO..."
-      style="flex:1;min-width:180px;padding:8px 12px;border:2px solid var(--borde);border-radius:9px;font-family:Nunito,sans-serif;font-size:13px;outline:none"
+      style="flex:1;min-width:160px;padding:8px 12px;border:2px solid var(--bo);border-radius:9px;font-family:Nunito,sans-serif;font-size:13px;outline:none"
       oninput="debR()" onkeydown="if(event.key==='Enter')buscarR()">
     <button class="btn bp" onclick="buscarR()">Buscar</button>
     <button class="btn bs" onclick="abrirNuevo()">＋ Nuevo</button>
     <button class="btn bo" onclick="cargarRegistro()">↺ Actualizar</button>
+    <button class="btn bw" onclick="exportarExcel('registro')">📥 Excel</button>
+    <button class="btn bw" onclick="exportarPDF('registro')">📄 PDF</button>
   </div>
   <div class="card" style="overflow:hidden">
-    <div style="padding:12px 16px;border-bottom:2px solid var(--borde)">
-      <span id="titR" style="font-weight:800;font-size:14px;color:var(--azul)">✅ Hoja REGISTRO</span>
+    <div style="padding:11px 15px;border-bottom:2px solid var(--bo)">
+      <span id="titR" style="font-weight:800;font-size:14px;color:var(--az)">✅ Hoja REGISTRO</span>
     </div>
-    <div class="tw"><table>
-      <thead><tr><th>Grupo</th><th>Nombre</th><th>Código</th><th>Mamá / Tel</th><th>Pago</th><th>Cantidad</th><th>Acciones</th></tr></thead>
-      <tbody id="tbR"><tr><td colspan="7" class="msg">⏳ Cargando REGISTRO...</td></tr></tbody>
+    <div class="tw"><table id="tblRegistro">
+      <thead><tr><th>Grupo</th><th>Nombre</th><th>Código</th><th>Mamá / Tel</th><th>Padrino/Madrina</th><th>Pago</th><th>Cantidad</th><th>Docs</th><th>Acciones</th></tr></thead>
+      <tbody id="tbR"><tr><td colspan="9" class="msg">⏳ Cargando...</td></tr></tbody>
     </table></div>
   </div>
 </section>
 
 <!-- ═══ DASHBOARD ═══ -->
 <section id="dashboard" class="sec">
-  <div id="dashContent"><div class="msg">⏳ Cargando dashboard...</div></div>
+  <div id="dashContent"><div class="msg">⏳ Cargando...</div></div>
 </section>
 
 <!-- ═══ TICKET ═══ -->
 <section id="ticket" class="sec">
   <div class="tklayout">
     <div>
-      <div class="card" style="padding:14px;margin-bottom:12px">
-        <div style="font-weight:800;color:var(--azul);margin-bottom:8px;font-size:13px">🔍 Buscar alumno</div>
+      <div class="card" style="padding:13px;margin-bottom:11px">
+        <div style="font-weight:800;color:var(--az);margin-bottom:8px;font-size:13px">🔍 Buscar alumno</div>
         <input id="tkBusq" type="text" placeholder="Nombre o código..."
-          style="width:100%;padding:8px 11px;border:2px solid var(--borde);border-radius:8px;font-family:Nunito,sans-serif;font-size:13px;outline:none;margin-bottom:8px"
+          style="width:100%;padding:8px 11px;border:2px solid var(--bo);border-radius:8px;font-family:Nunito,sans-serif;font-size:13px;outline:none;margin-bottom:7px"
           oninput="tkSearch()">
-        <div id="tkRes" style="max-height:240px;overflow-y:auto"></div>
+        <div id="tkRes" style="max-height:220px;overflow-y:auto"></div>
       </div>
-      <div class="card" style="padding:14px">
-        <div style="font-weight:800;color:var(--azul);margin-bottom:10px;font-size:13px">⚙️ Ticket</div>
+      <div class="card" style="padding:13px">
+        <div style="font-weight:800;color:var(--az);margin-bottom:10px;font-size:13px">⚙️ Datos del ticket</div>
         <div style="display:flex;flex-direction:column;gap:8px">
-          <div class="fg"><label>💰 Cantidad ($)</label>
+          <div class="fg"><label>💰 Cantidad recibida ($)</label>
             <input type="number" id="tk_c" placeholder="0.00" min="0" step="0.01"
               onchange="guardarPagoYCantidad()"
-              style="font-size:18px;font-weight:800;color:var(--verde);border-color:var(--verde)">
+              style="font-size:18px;font-weight:800;color:var(--ve);border-color:var(--ve)">
           </div>
           <div class="fg"><label>Estatus pago</label>
             <select id="tk_p" onchange="guardarPagoYCantidad()">
@@ -191,97 +211,124 @@ td{padding:8px 12px;font-size:13px}
             </select>
           </div>
           <div class="fg"><label>Concepto</label>
-            <input type="text" id="tk_con" value="Inscripción Catequesis 2025" oninput="renderTk()">
-          </div>
+            <input type="text" id="tk_con" value="Inscripción Catequesis 2025" oninput="renderTk()"></div>
           <div class="fg"><label>Folio</label><input type="text" id="tk_f" oninput="renderTk()"></div>
           <div class="fg"><label>Fecha</label><input type="date" id="tk_d" oninput="renderTk()"></div>
           <div class="fg"><label>Recibió</label><input type="text" id="tk_r" placeholder="Catequista..." oninput="renderTk()"></div>
-          <div id="tk_st" style="font-size:11px;font-weight:700;min-height:14px;color:var(--verde)"></div>
+          <div id="tk_st" style="font-size:11px;font-weight:700;min-height:14px;color:var(--ve)"></div>
         </div>
       </div>
     </div>
     <div>
-      <div class="card" style="padding:12px;margin-bottom:12px;display:flex;gap:8px">
+      <div class="card" style="padding:11px;margin-bottom:11px;display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn bp" onclick="impTk(1)">🖨️ Imprimir</button>
-        <button class="btn bs" onclick="impTk(2)">📄 x2 (cortar)</button>
+        <button class="btn bs" onclick="impTk(2)">📄 ×2 cortar</button>
       </div>
-      <div id="tkPrev" class="card" style="padding:16px;min-height:180px;display:flex;align-items:center;justify-content:center;color:var(--txt2);font-size:13px">
+      <div id="tkPrev" class="card" style="padding:16px;min-height:180px;display:flex;align-items:center;justify-content:center;color:var(--t2);font-size:13px">
         Selecciona un alumno
       </div>
     </div>
   </div>
 </section>
-
 </main>
 
-<!-- MODAL ALUMNO -->
+<!-- ══ MODAL ALUMNO ══ -->
 <div class="ov" id="modAlumno">
-  <div class="modal">
-    <div class="mh"><h2 id="modTit">Alumno</h2><button class="mx" onclick="cModal()">✕</button></div>
-    <div class="mb">
-      <div class="fgrid">
-        <div class="slbl">👤 Datos</div>
-        <div class="fg full"><label>Nombre *</label><input id="f_nom" placeholder="Nombre completo"></div>
-        <div class="fg"><label>Código</label><input id="f_cod" placeholder="Ej: COM1-001"></div>
-        <div class="fg"><label>Grupo *</label>
-          <select id="f_grp" onchange="autoCurso()">
-            <option value="">-- Grupo --</option>
-            <optgroup label="INICIACIÓN"><option>INI1</option><option>INI2</option><option>INI3</option><option>INI4</option><option>INI5</option><option>INI6</option><option>INI7</option><option>INI8</option><option>INI9</option><option>INI10</option></optgroup>
-            <optgroup label="CONFIRMACIÓN"><option>CONF1</option><option>CONF2</option><option>CONF3</option><option>CONF4</option><option>CONF5</option><option>CONF6</option><option>CONF7</option><option>CONF8</option><option>CONF9</option><option>CONF10</option></optgroup>
-            <optgroup label="COMUNIÓN"><option>COM1</option><option>COM2</option><option>COM3</option><option>COM4</option><option>COM5</option><option>COM6</option><option>COM7</option><option>COM8</option><option>COM9</option><option>COM10</option></optgroup>
-            <optgroup label="PERSEVERANTE"><option>PER1</option><option>PER2</option><option>PER3</option><option>PER4</option><option>PER5</option></optgroup>
-            <optgroup label="CATEQUISTA"><option>PERS1</option><option>PERS2</option><option>PERS3</option><option>PERS4</option><option>PERS5</option></optgroup>
-          </select>
-        </div>
-        <div class="fg"><label>Curso</label><input id="f_cur" readonly style="background:#f1f5f9"></div>
-        <div class="fg"><label>Fecha nacimiento</label><input type="date" id="f_fn"></div>
-        <div class="fg"><label>Edad</label><input type="number" id="f_edad" min="3" max="18"></div>
-        <div class="fg"><label>Sexo</label><select id="f_sex"><option value="">--</option><option>Masculino</option><option>Femenino</option></select></div>
-        <div class="fg"><label>Talla</label><input id="f_tal" placeholder="Ej: Adulto chico"></div>
-        <div class="slbl">🏠 Familia</div>
-        <div class="fg"><label>Mamá/Papá</label><input id="f_mad" placeholder="Nombre"></div>
-        <div class="fg"><label>Teléfono</label><input type="tel" id="f_tel" placeholder="81 XXXX XXXX"></div>
-        <div class="slbl">📚 Grupo</div>
-        <div class="fg"><label>Catequista</label><input id="f_cat" placeholder="Nombre"></div>
-        <div class="fg"><label>Catequista 2</label><input id="f_ca2" placeholder="Opcional"></div>
-        <div class="fg"><label>Día</label><select id="f_dia"><option value="">--</option><option>Lunes</option><option>Martes</option><option>Miércoles</option><option>Jueves</option><option>Viernes</option><option>Sábado</option><option>Domingo</option></select></div>
-        <div class="fg"><label>Hora</label><input type="time" id="f_hor"></div>
-        <div class="fg"><label>Santo del grupo</label><input id="f_san" placeholder="Ej: San Juan Bautista"></div>
-        <div class="fg"><label>Ubicación/Salón</label><input id="f_ubi" placeholder="Salón..."></div>
-        <div class="slbl">💰 Pago</div>
-        <div class="fg"><label>Estatus</label><select id="f_pag"><option value="">--</option><option value="Pagado">Pagado ✅</option><option value="Pendiente">Pendiente ⏳</option><option value="Parcial">Parcial 🔸</option><option value="Exento">Exento 🙏</option></select></div>
-        <div class="fg"><label>Cantidad ($)</label><input type="number" id="f_can" placeholder="0.00" min="0" step="0.01"></div>
+<div class="modal">
+  <div class="mh"><h2 id="modTit">Alumno</h2><button class="mx" onclick="cModal()">✕</button></div>
+  <div class="mb">
+   <div class="fgrid">
+    <div class="slbl">👤 Datos del alumno</div>
+    <div class="fg full"><label>Nombre completo *</label><input id="f_nom" placeholder="Nombre completo del alumno"></div>
+    <div class="fg"><label>Código</label><input id="f_cod" placeholder="Ej: COM1-001"></div>
+    <div class="fg"><label>Grupo *</label>
+      <select id="f_grp" onchange="autoCurso()">
+        <option value="">-- Grupo --</option>
+        <optgroup label="INICIACIÓN"><option>INI1</option><option>INI2</option><option>INI3</option><option>INI4</option><option>INI5</option><option>INI6</option><option>INI7</option><option>INI8</option><option>INI9</option><option>INI10</option></optgroup>
+        <optgroup label="CONFIRMACIÓN"><option>CONF1</option><option>CONF2</option><option>CONF3</option><option>CONF4</option><option>CONF5</option><option>CONF6</option><option>CONF7</option><option>CONF8</option><option>CONF9</option><option>CONF10</option></optgroup>
+        <optgroup label="COMUNIÓN"><option>COM1</option><option>COM2</option><option>COM3</option><option>COM4</option><option>COM5</option><option>COM6</option><option>COM7</option><option>COM8</option><option>COM9</option><option>COM10</option></optgroup>
+        <optgroup label="PERSEVERANTE"><option>PER1</option><option>PER2</option><option>PER3</option><option>PER4</option><option>PER5</option></optgroup>
+        <optgroup label="CATEQUISTA"><option>PERS1</option><option>PERS2</option><option>PERS3</option><option>PERS4</option><option>PERS5</option></optgroup>
+      </select>
+    </div>
+    <div class="fg"><label>Curso</label><input id="f_cur" readonly style="background:#f1f5f9"></div>
+    <div class="fg"><label>Fecha de nacimiento</label>
+      <input type="date" id="f_fn" oninput="calcEdad()"></div>
+    <div class="fg"><label>Edad (auto)</label>
+      <input type="number" id="f_edad" min="0" max="25" style="background:#f0fdf4;font-weight:700" readonly placeholder="Se calcula sola"></div>
+    <div class="fg"><label>Sexo</label>
+      <select id="f_sex"><option value="">--</option><option>Masculino</option><option>Femenino</option></select></div>
+    <div class="fg"><label>Talla</label><input id="f_tal" placeholder="Ej: Adulto chico"></div>
+
+    <div class="slbl">👩 Mamá / Papá</div>
+    <div class="fg"><label>Nombre mamá *</label><input id="f_mad" placeholder="Nombre completo"></div>
+    <div class="fg"><label>Teléfono mamá</label><input type="tel" id="f_tel" placeholder="81 XXXX XXXX"></div>
+    <div class="fg"><label>Nombre papá</label><input id="f_pap" placeholder="Nombre completo (opcional)"></div>
+    <div class="fg"><label>Teléfono papá</label><input type="tel" id="f_telp" placeholder="81 XXXX XXXX"></div>
+
+    <div class="slbl">🕊️ Padrino / Madrina</div>
+    <div class="fg"><label>Padrino</label><input id="f_pad" placeholder="Nombre del padrino"></div>
+    <div class="fg"><label>Tel. padrino</label><input type="tel" id="f_padtel" placeholder="81 XXXX XXXX"></div>
+    <div class="fg"><label>Madrina</label><input id="f_mad2" placeholder="Nombre de la madrina"></div>
+    <div class="fg"><label>Tel. madrina</label><input type="tel" id="f_mad2tel" placeholder="81 XXXX XXXX"></div>
+
+    <div class="slbl">📚 Grupo y catequistas</div>
+    <div class="fg"><label>Catequista</label><input id="f_cat" placeholder="Nombre"></div>
+    <div class="fg"><label>Catequista 2</label><input id="f_ca2" placeholder="Opcional"></div>
+    <div class="fg"><label>Día</label>
+      <select id="f_dia"><option value="">--</option><option>Lunes</option><option>Martes</option><option>Miércoles</option><option>Jueves</option><option>Viernes</option><option>Sábado</option><option>Domingo</option></select></div>
+    <div class="fg"><label>Hora</label><input type="time" id="f_hor"></div>
+    <div class="fg"><label>Santo del grupo</label><input id="f_san" placeholder="Ej: San Juan Bautista"></div>
+    <div class="fg"><label>Ubicación / Salón</label><input id="f_ubi" placeholder="Salón..."></div>
+
+    <div class="slbl">💰 Pago</div>
+    <div class="fg"><label>Estatus pago</label>
+      <select id="f_pag"><option value="">--</option><option value="Pagado">Pagado ✅</option><option value="Pendiente">Pendiente ⏳</option><option value="Parcial">Parcial 🔸</option><option value="Exento">Exento 🙏</option></select></div>
+    <div class="fg"><label>Cantidad ($)</label><input type="number" id="f_can" placeholder="0.00" min="0" step="0.01"></div>
+
+    <div class="slbl">📎 Documentos / Papelería</div>
+    <div class="full" id="docsArea">
+      <div class="docgrid" id="docGrid">
+        <!-- Se llena con renderDocGrid() -->
       </div>
     </div>
-    <div class="mf">
-      <button class="btn bo" onclick="cModal()">Cancelar</button>
-      <button class="btn bs" id="btnG" onclick="guardarAlumno()">✅ Guardar</button>
-    </div>
+   </div>
+  </div>
+  <div class="mf">
+    <button class="btn bo" onclick="cModal()">Cancelar</button>
+    <button class="btn bs" id="btnG" onclick="guardarAlumno()">✅ Guardar</button>
   </div>
 </div>
+</div>
 
-<!-- MODAL LISTA PAGOS -->
+<!-- ══ MODAL LISTA PAGOS ══ -->
 <div class="ov" id="modPagos">
-  <div class="modal" style="max-width:700px">
-    <div class="mh"><h2 id="modPTit">Lista</h2><button class="mx" onclick="document.getElementById('modPagos').classList.remove('on')">✕</button></div>
-    <div class="mb" style="padding:0">
-      <div style="overflow-x:auto;max-height:65vh;overflow-y:auto">
-        <table><thead><tr><th>Grupo</th><th>Nombre</th><th>Mamá/Tel</th><th>Pago</th><th>Cantidad</th></tr></thead>
-        <tbody id="modPBody"></tbody></table>
-      </div>
+<div class="modal" style="max-width:720px">
+  <div class="mh"><h2 id="modPTit">Lista</h2><button class="mx" onclick="document.getElementById('modPagos').classList.remove('on')">✕</button></div>
+  <div class="mb" style="padding:0">
+    <div style="overflow-x:auto;max-height:65vh;overflow-y:auto">
+      <table><thead><tr><th>Grupo</th><th>Nombre</th><th>Mamá/Tel</th><th>Pago</th><th>Cantidad</th></tr></thead>
+      <tbody id="modPBody"></tbody></table>
     </div>
-    <div class="mf"><button class="btn bo" onclick="document.getElementById('modPagos').classList.remove('on')">Cerrar</button></div>
   </div>
+  <div class="mf"><button class="btn bo" onclick="document.getElementById('modPagos').classList.remove('on')">Cerrar</button></div>
+</div>
 </div>
 
-<!-- MODAL DETALLE GRUPO -->
+<!-- ══ MODAL DETALLE GRUPO ══ -->
 <div class="ov" id="modGrupo">
-  <div class="modal" style="max-width:560px">
-    <div class="mh" id="modGH"><h2 id="modGTit">Grupo</h2><button class="mx" onclick="document.getElementById('modGrupo').classList.remove('on')">✕</button></div>
-    <div class="mb" id="modGB"></div>
-  </div>
+<div class="modal" style="max-width:560px">
+  <div class="mh" id="modGH"><h2 id="modGTit">Grupo</h2><button class="mx" onclick="document.getElementById('modGrupo').classList.remove('on')">✕</button></div>
+  <div class="mb" id="modGB"></div>
+</div>
 </div>
 
+<!-- LIGHTBOX -->
+<div id="lb" onclick="if(event.target===this)document.getElementById('lb').classList.remove('on')">
+  <button onclick="document.getElementById('lb').classList.remove('on')" style="position:absolute;top:14px;right:18px;background:rgba(255,255,255,.15);color:#fff;border:none;border-radius:8px;padding:7px 14px;cursor:pointer;font-size:14px;font-weight:700">✕ Cerrar</button>
+  <div id="lbContent"></div>
+  <div id="lbLabel" style="color:#fff;font-size:12px;font-weight:700;opacity:.75"></div>
+</div>
 <div id="toast"></div>
 
 <script>
@@ -291,7 +338,7 @@ const NIVS = ['INI','CONF','COM','PER','PERS'];
 const NNOM = {INI:'Iniciación',CONF:'Confirmación',COM:'Comunión',PER:'Perseverante',PERS:'Catequista'};
 const NCOL = {INI:'#2563a8',CONF:'#7c3aed',COM:'#16a34a',PER:'#ea580c',PERS:'#f59e0b'};
 const NCLS = {INI:'bi',CONF:'bc',COM:'bco',PER:'bp2',PERS:'bps'};
-const GRUPOS = {
+const GRUPOS={
   INI:[...Array(10)].map((_,i)=>'INI'+(i+1)),
   CONF:[...Array(10)].map((_,i)=>'CONF'+(i+1)),
   COM:[...Array(10)].map((_,i)=>'COM'+(i+1)),
@@ -299,11 +346,22 @@ const GRUPOS = {
   PERS:[...Array(5)].map((_,i)=>'PERS'+(i+1))
 };
 
+const DOCS_CFG=[
+  {k:'FOTO',           lbl:'Foto alumno',       ico:'🖼️', col:'#2563a8', ac:'image/*'},
+  {k:'ACTA DE NACIMIENTO', lbl:'Acta nacimiento',ico:'📄', col:'#16a34a', ac:'image/*,.pdf'},
+  {k:'BOLETA DE BAUTIZO',  lbl:'Boleta bautizo', ico:'💧', col:'#0891b2', ac:'image/*,.pdf'},
+  {k:'BOLETA DE CONFIRMACION',lbl:'Confirmación/Comunión',ico:'✝️',col:'#7c3aed',ac:'image/*,.pdf'},
+  {k:'INE',            lbl:'INE padre/madre',   ico:'🪪', col:'#ea580c', ac:'image/*,.pdf'},
+  {k:'COMPROBANTE DE PAGO', lbl:'Comprobante pago',ico:'💰',col:'#0f766e',ac:'image/*,.pdf'},
+];
+
 let datosData=[], registroData=[], dashData=null;
 let tkAlumno=null, editRow=null, editHoja=null;
 let cbN=0, dtimer=null, rtimer=null;
+// Archivos pendientes de subir (antes de guardar)
+let filesPending={};
 
-// ── NAVEGACIÓN ──
+// ── NAV ──
 function goSec(s){
   document.querySelectorAll('.sec').forEach(x=>x.classList.remove('on'));
   document.querySelectorAll('.nb').forEach(x=>x.classList.remove('on'));
@@ -316,143 +374,258 @@ function goSec(s){
 }
 
 // ── JSONP ──
-function gas(action, params, ok, err){
-  var cb='ck'+cbN+++'x'+Date.now();
-  var base=GAS.replace(/\/exec.*/,'')+'/exec';
-  var qs='action='+encodeURIComponent(action)+'&callback='+encodeURIComponent(cb);
+function gas(action,params,ok,err){
+  const cb='ck'+cbN+++'x'+Date.now();
+  const base=GAS.replace(/\/exec.*/,'')+'/exec';
+  let qs='action='+encodeURIComponent(action)+'&callback='+encodeURIComponent(cb);
   if(params) Object.keys(params).forEach(k=>{ qs+='&'+encodeURIComponent(k)+'='+encodeURIComponent(params[k]); });
-  var s=document.createElement('script');
-  var done=false;
-  var t=setTimeout(()=>{ if(done)return; done=true; cleanup(); if(err) err('timeout'); },25000);
+  const s=document.createElement('script');
+  let done=false;
+  const t=setTimeout(()=>{ if(done)return; done=true; cleanup(); if(err) err('timeout'); },25000);
   function cleanup(){ try{delete window[cb]}catch(e){} try{if(s.parentNode)s.parentNode.removeChild(s)}catch(e){} }
   window[cb]=function(d){ if(done)return; done=true; clearTimeout(t); cleanup(); if(ok) ok(d); };
-  s.onerror=function(){ if(done)return; done=true; clearTimeout(t); cleanup(); if(err) err('error de script'); };
+  s.onerror=function(){ if(done)return; done=true; clearTimeout(t); cleanup(); if(err) err('script_error'); };
   s.src=base+'?'+qs;
   document.body.appendChild(s);
 }
-function post(p,ok,err){
-  fetch(GAS,{method:'POST',body:JSON.stringify(p)})
-    .then(r=>r.json()).then(ok).catch(err||console.error);
-}
+function post(p,ok,err){ fetch(GAS,{method:'POST',body:JSON.stringify(p)}).then(r=>r.json()).then(ok).catch(err||console.error); }
 
-// ── ERRORES ──
 function errHTML(cols,msg){
   return '<tr><td colspan="'+cols+'"><div style="padding:22px;text-align:center">'
-    +'<div style="font-size:30px;margin-bottom:8px">⚠️</div>'
-    +'<div style="font-weight:800;color:#92400e;margin-bottom:8px">Sin conexión</div>'
-    +'<div style="font-size:11px;font-family:monospace;color:#78350f;background:#fef3c7;padding:7px 10px;border-radius:6px;margin-bottom:12px;word-break:break-all">'+(msg||'error')+'</div>'
+    +'<div style="font-size:28px;margin-bottom:7px">⚠️</div>'
+    +'<div style="font-weight:800;color:#92400e;margin-bottom:7px">Sin conexión</div>'
+    +'<div style="font-size:11px;font-family:monospace;color:#78350f;background:#fef3c7;padding:7px;border-radius:6px;margin-bottom:11px;word-break:break-all">'+(msg||'error')+'</div>'
     +'<div style="display:flex;gap:8px;justify-content:center">'
-    +'<a href="'+GAS+'?action=ping&callback=test" target="_blank" class="btn bp" style="text-decoration:none">🔗 Activar permisos</a>'
+    +'<a href="'+GAS+'?action=ping&callback=test" target="_blank" class="btn bp" style="text-decoration:none">🔗 Activar</a>'
     +'<button class="btn bs" onclick="location.reload()">🔄 Reintentar</button>'
     +'</div></div></td></tr>';
 }
 
+// ── UTILS ──
 function niv(g){ return NIVS.find(n=>g.startsWith(n))||'COM'; }
 function esc(v){ return String(v||'').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function cant(a){ return parseFloat(String(a['CANTIDAD']||a['CANTIDAD RECIBIDA']||'0').replace(/[^0-9.]/g,''))||0; }
 function pcol(p){ return {Pagado:'#16a34a',Pendiente:'#f59e0b',Parcial:'#d97706',Exento:'#7c3aed'}[p]||'#dc2626'; }
 
-// ════════════════ DATOS ════════════════
+// ── CALCULAR EDAD ──
+function calcEdad(){
+  const fn=document.getElementById('f_fn').value;
+  if(!fn){ document.getElementById('f_edad').value=''; return; }
+  const nac=new Date(fn+'T12:00:00');
+  const hoy=new Date();
+  let edad=hoy.getFullYear()-nac.getFullYear();
+  const m=hoy.getMonth()-nac.getMonth();
+  if(m<0||(m===0&&hoy.getDate()<nac.getDate())) edad--;
+  document.getElementById('f_edad').value=edad>=0?edad:'';
+}
+
+// ── DOCS GRID EN MODAL ──
+function renderDocGrid(alumno){
+  const alumnoActual=alumno||{};
+  document.getElementById('docGrid').innerHTML=DOCS_CFG.map((cfg,i)=>{
+    const url=String(alumnoActual[cfg.k]||'').trim();
+    const tiene=url&&url.startsWith('http');
+    const thumb=tiene&&url.includes('/d/')?'https://drive.google.com/thumbnail?id='+url.match(/\/d\/([^/]+)/)?.[1]+'&sz=w300':url;
+    const esImg=tiene&&(url.match(/\.(jpg|jpeg|png|gif|webp)/i)||cfg.k==='FOTO');
+    const badge=tiene
+      ?'<span style="background:#dcfce7;color:#16a34a;font-size:9px;padding:2px 5px;border-radius:8px;font-weight:800">✅</span>'
+      :'<span style="background:#fee2e2;color:#dc2626;font-size:9px;padding:2px 5px;border-radius:8px;font-weight:800">❌</span>';
+    const preview=tiene
+      ?(esImg
+        ?'<img src="'+thumb+'" class="dcprev" onclick="lbOpen(\''+url+'\',\''+esc(cfg.lbl)+'\',true)" onerror="this.style.display=\'none\'">'
+        :'<a href="'+url+'" target="_blank" class="dcpdf"><span style="font-size:28px">📄</span><span>Ver PDF</span></a>'
+       )
+      :'<div class="dcup"><input type="file" accept="'+cfg.ac+'" onchange="fileSeleccionado(\''+cfg.k+'\',this,'+i+')" title="Subir"><span style="font-size:22px">'+cfg.ico+'</span><span style="font-size:11px;color:var(--t2);font-weight:700">Sin archivo</span><span style="font-size:10px;color:var(--azm)">📤 Subir</span></div>';
+    const pie=tiene
+      ?'<div class="dcfoot"><a href="'+url+'" target="_blank" class="btn bo" style="flex:1;text-align:center;font-size:10px;padding:4px">🔗 Abrir</a><label class="btn bw" style="flex:1;text-align:center;font-size:10px;padding:4px;cursor:pointer"><input type="file" accept="'+cfg.ac+'" style="display:none" onchange="fileSeleccionado(\''+cfg.k+'\',this,'+i+')">🔄 Cambiar</label></div>'
+      :'<div class="dcfoot"><label class="btn bs" style="width:100%;text-align:center;font-size:11px;padding:5px;cursor:pointer"><input type="file" accept="'+cfg.ac+'" style="display:none" onchange="fileSeleccionado(\''+cfg.k+'\',this,'+i+')">📤 Subir</label></div>';
+    return '<div class="doccard">'
+      +'<div class="dchead" style="background:'+cfg.col+'"><span>'+cfg.ico+' '+cfg.lbl+'</span>'+badge+'</div>'
+      +preview
+      +'<div id="dcst'+i+'" style="padding:2px 8px;font-size:10px;font-weight:700;min-height:16px"></div>'
+      +pie
+    +'</div>';
+  }).join('');
+}
+
+function fileSeleccionado(campo,inp,idx){
+  const file=inp.files&&inp.files[0];
+  if(!file)return;
+  filesPending[campo]=file;
+  document.getElementById('dcst'+idx).innerHTML='<span style="color:var(--do)">📎 '+file.name.slice(0,24)+'...</span>';
+  const card=inp.closest('.doccard');
+  if(card) card.style.borderColor='var(--do)';
+}
+
+async function subirArchivosDrive(rowNum, codigo){
+  const keys=Object.keys(filesPending);
+  if(!keys.length) return {};
+  const urls={};
+  for(const campo of keys){
+    const file=filesPending[campo];
+    const b64=await fileToB64(file);
+    const ext=file.name.match(/\.[^.]+$/)?.[0]||'';
+    const filename=String(codigo||rowNum).replace(/[^a-zA-Z0-9_]/g,'_')+'_'+campo.replace(/ /g,'_')+'_'+Date.now()+ext;
+    const res=await fetch(GAS,{method:'POST',body:JSON.stringify({
+      action:'subirArchivo',base64:b64,mimeType:file.type||'application/octet-stream',
+      filename:filename,codigo:String(codigo||rowNum)
+    })}).then(r=>r.json()).catch(()=>({error:'fetch error'}));
+    if(res.success&&res.url) urls[campo]=res.url;
+  }
+  filesPending={};
+  return urls;
+}
+
+function fileToB64(file){
+  return new Promise(res=>{ const r=new FileReader(); r.onload=e=>res(e.target.result.split(',')[1]); r.readAsDataURL(file); });
+}
+
+function lbOpen(url,label,esImg){
+  const ct=document.getElementById('lbContent');
+  const m=url.match(/\/d\/([^/]+)/);
+  const disp=m&&esImg?'https://drive.google.com/thumbnail?id='+m[1]+'&sz=w900':url;
+  ct.innerHTML=esImg
+    ?'<img src="'+disp+'" style="max-width:88vw;max-height:84vh;border-radius:8px" onerror="this.src=\''+url+'\'">'
+    :'<iframe src="'+url+'" style="width:84vw;height:84vh;border:none;border-radius:8px"></iframe>';
+  document.getElementById('lbLabel').textContent=label;
+  document.getElementById('lb').classList.add('on');
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.getElementById('lb').classList.remove('on'); });
+
+// ── DATOS ──
 function cargarDatos(q){
   const tb=document.getElementById('tbD');
-  tb.innerHTML='<tr><td colspan="6" class="msg">⏳ Cargando DATOS...</td></tr>';
-  gas(q?'buscarEnDatos':'getDatos', q?{query:q}:{}, function(d){
-    if(!d||d.error){ tb.innerHTML=errHTML(6,d&&d.error); return; }
+  tb.innerHTML='<tr><td colspan="7" class="msg">⏳ Cargando DATOS...</td></tr>';
+  gas(q?'buscarEnDatos':'getDatos',q?{query:q}:{},function(d){
+    if(!d||d.error){ tb.innerHTML=errHTML(7,d&&d.error); return; }
     datosData=d.alumnos||[];
-    document.getElementById('titD').textContent='📋 DATOS ('+datosData.length+' alumnos)';
-    if(!datosData.length){ tb.innerHTML='<tr><td colspan="6" class="msg">Sin alumnos en DATOS</td></tr>'; return; }
+    document.getElementById('titD').textContent='📋 DATOS ('+datosData.length+')';
     tb.innerHTML=datosData.map(a=>{
       const g=String(a['CODIGO DE GRUPO']||'').trim().toUpperCase();
-      const nv=niv(g), p=String(a['PAGO']||'').trim();
-      const yaPromovido=p==='Promovido';
+      const nv2=niv(g), p=String(a['PAGO']||'').trim();
+      const yaP=p==='Promovido';
+      const docCount=DOCS_CFG.filter(c=>String(a[c.k]||'').startsWith('http')).length;
       return '<tr>'
-        +'<td><span class="bg '+NCLS[nv]+'">'+esc(g)+'</span></td>'
+        +'<td><span class="bg '+NCLS[nv2]+'">'+esc(g)+'</span></td>'
         +'<td><strong>'+esc(a['NOMBRE'])+'</strong></td>'
         +'<td style="font-size:12px">'+esc(a['CATEQUISTA'])+'</td>'
-        +'<td>'+esc(a['MADRE DE FAMILIA'])+'<br><span style="font-size:11px;color:var(--txt2)">'+esc(a['TELEFONO'])+'</span></td>'
+        +'<td>'+esc(a['MADRE DE FAMILIA'])+'<br><span style="font-size:11px;color:var(--t2)">'+esc(a['TELEFONO'])+'</span></td>'
         +'<td><span style="color:'+pcol(p)+';font-weight:800;font-size:12px">'+(p||'—')+'</span></td>'
-        +'<td><div style="display:flex;gap:4px">'
-          +(yaPromovido
-            ?'<span style="padding:4px 8px;background:var(--verdec);color:var(--verde);border-radius:6px;font-size:11px;font-weight:700">✅ Ya promovido</span>'
-            :'<button onclick="promover('+a._row+')" style="padding:4px 8px;background:var(--azulc);color:var(--azulm);border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;font-family:Nunito,sans-serif">➡️ Promover → REGISTRO</button>'
+        +'<td style="text-align:center"><span style="font-size:11px;font-weight:700;color:'+(docCount>0?'#16a34a':'#dc2626')+'">'+docCount+'/'+DOCS_CFG.length+' 📎</span></td>'
+        +'<td><div style="display:flex;gap:3px;flex-wrap:wrap">'
+          +(yaP
+            ?'<span style="padding:3px 7px;background:var(--vec);color:var(--ve);border-radius:6px;font-size:11px;font-weight:700">✅ Promovido</span>'
+            :'<button onclick="promover('+a._row+')" style="padding:3px 7px;background:var(--azc);color:var(--azm);border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;font-family:Nunito,sans-serif">➡️ Promover</button>'
           )
-          +'<button onclick="tkDesdeRow('+a._row+',\'datos\')" style="padding:4px 8px;background:var(--doradoc);color:#92400e;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;font-family:Nunito,sans-serif">🎫 Ticket</button>'
+          +'<button onclick="editarA('+a._row+',\'datos\')" style="padding:3px 7px;background:var(--doc);color:#92400e;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;font-family:Nunito,sans-serif">✏️ Editar</button>'
+          +'<button onclick="tkDesdeRow('+a._row+',\'datos\')" style="padding:3px 7px;background:#f0fdf4;color:#0f766e;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;font-family:Nunito,sans-serif">🎫</button>'
         +'</div></td>'
       +'</tr>';
     }).join('');
-  }, e=>{ document.getElementById('tbD').innerHTML=errHTML(6,e); });
+  },e=>{ document.getElementById('tbD').innerHTML=errHTML(7,e); });
 }
 function debD(){ clearTimeout(dtimer); dtimer=setTimeout(buscarD,500); }
-function buscarD(){ const q=document.getElementById('busqD').value.trim(); cargarDatos(q||null); }
+function buscarD(){ cargarDatos(document.getElementById('busqD').value.trim()||null); }
 
-// ════════════════ REGISTRO ════════════════
+// ── REGISTRO ──
 function cargarRegistro(q){
   const tb=document.getElementById('tbR');
-  tb.innerHTML='<tr><td colspan="7" class="msg">⏳ Cargando REGISTRO...</td></tr>';
-  gas(q?'buscarEnRegistro':'getRegistro', q?{query:q}:{}, function(d){
-    if(!d||d.error){ tb.innerHTML=errHTML(7,d&&d.error); return; }
+  tb.innerHTML='<tr><td colspan="9" class="msg">⏳ Cargando REGISTRO...</td></tr>';
+  gas(q?'buscarEnRegistro':'getRegistro',q?{query:q}:{},function(d){
+    if(!d||d.error){ tb.innerHTML=errHTML(9,d&&d.error); return; }
     registroData=d.alumnos||[];
-    document.getElementById('titR').textContent='✅ REGISTRO ('+registroData.length+' alumnos)';
-    if(!registroData.length){ tb.innerHTML='<tr><td colspan="7" class="msg">Sin alumnos en REGISTRO</td></tr>'; return; }
+    document.getElementById('titR').textContent='✅ REGISTRO ('+registroData.length+')';
     tb.innerHTML=registroData.map(a=>{
       const g=String(a['CODIGO DE GRUPO']||'').trim().toUpperCase();
-      const nv=niv(g), p=String(a['PAGO']||'').trim(), ca=cant(a);
+      const nv2=niv(g), p=String(a['PAGO']||'').trim(), ca=cant(a);
+      const pad=String(a['PADRINO']||'').trim();
+      const mad2=String(a['MADRINA']||'').trim();
+      const docCount=DOCS_CFG.filter(c=>String(a[c.k]||'').startsWith('http')).length;
       return '<tr>'
-        +'<td><span class="bg '+NCLS[nv]+'">'+esc(g)+'</span></td>'
+        +'<td><span class="bg '+NCLS[nv2]+'">'+esc(g)+'</span></td>'
         +'<td><strong>'+esc(a['NOMBRE'])+'</strong></td>'
         +'<td style="font-family:monospace;font-size:11px">'+esc(a['CODIGO'])+'</td>'
-        +'<td>'+esc(a['MADRE DE FAMILIA'])+'<br><span style="font-size:11px;color:var(--txt2)">'+esc(a['TELEFONO'])+'</span></td>'
+        +'<td>'+esc(a['MADRE DE FAMILIA'])+'<br><span style="font-size:11px;color:var(--t2)">'+esc(a['TELEFONO'])+'</span></td>'
+        +'<td style="font-size:12px">'+(pad||mad2?(esc(pad)+(mad2?'<br>'+esc(mad2):'')):'—')+'</td>'
         +'<td><span style="color:'+pcol(p)+';font-weight:800;font-size:12px">'+(p||'—')+'</span></td>'
-        +'<td style="font-weight:800;color:var(--verde)">'+(ca>0?'$'+ca.toFixed(2):'—')+'</td>'
-        +'<td><div style="display:flex;gap:4px">'
-          +'<button onclick="editarR('+a._row+')" style="padding:4px 8px;background:var(--azulc);color:var(--azulm);border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;font-family:Nunito,sans-serif">✏️</button>'
-          +'<button onclick="tkDesdeRow('+a._row+',\'registro\')" style="padding:4px 8px;background:var(--doradoc);color:#92400e;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;font-family:Nunito,sans-serif">🎫</button>'
+        +'<td style="font-weight:800;color:#0f766e">'+(ca>0?'$'+ca.toFixed(2):'—')+'</td>'
+        +'<td style="text-align:center"><button onclick="verDocs('+a._row+',\'registro\')" style="padding:3px 8px;background:var(--doc);color:#92400e;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;font-family:Nunito,sans-serif">📎 '+docCount+'</button></td>'
+        +'<td><div style="display:flex;gap:3px">'
+          +'<button onclick="editarA('+a._row+',\'registro\')" style="padding:3px 7px;background:var(--azc);color:var(--azm);border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;font-family:Nunito,sans-serif">✏️</button>'
+          +'<button onclick="tkDesdeRow('+a._row+',\'registro\')" style="padding:3px 7px;background:#f0fdf4;color:#0f766e;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;font-family:Nunito,sans-serif">🎫</button>'
         +'</div></td>'
       +'</tr>';
     }).join('');
-  }, e=>{ document.getElementById('tbR').innerHTML=errHTML(7,e); });
+  },e=>{ document.getElementById('tbR').innerHTML=errHTML(9,e); });
 }
 function debR(){ clearTimeout(rtimer); rtimer=setTimeout(buscarR,500); }
-function buscarR(){ const q=document.getElementById('busqR').value.trim(); cargarRegistro(q||null); }
+function buscarR(){ cargarRegistro(document.getElementById('busqR').value.trim()||null); }
 
-// ════════════════ PROMOVER ════════════════
+// ── VER DOCS MODAL ──
+function verDocs(row, hoja){
+  const arr=hoja==='registro'?registroData:datosData;
+  const a=arr.find(x=>x._row===row);
+  if(!a)return;
+  editRow=row; editHoja=hoja;
+  filesPending={};
+  document.getElementById('modTit').textContent='📎 Documentos — '+esc(a['NOMBRE']);
+  document.getElementById('btnG').style.display='none';
+  renderDocGrid(a);
+  document.getElementById('modAlumno').classList.add('on');
+}
+
+// ── PROMOVER ──
 function promover(row){
   const a=datosData.find(x=>x._row===row); if(!a)return;
-  if(!confirm('¿Promover a '+a['NOMBRE']+' al REGISTRO?')) return;
-  post({action:'promoverARegistro', _row:row}, function(r){
+  if(!confirm('¿Promover "'+a['NOMBRE']+'" a REGISTRO?'))return;
+  post({action:'promoverARegistro',_row:row},function(r){
     if(r.success){ toast('✅ '+r.message,'ok'); cargarDatos(); }
     else toast('❌ '+(r.error||'Error'),'err');
   });
 }
 
-// ════════════════ FORMULARIO REGISTRO ════════════════
+// ── FORMULARIO ──
 function autoCurso(){
   const g=document.getElementById('f_grp').value;
-  const nv=NIVS.find(n=>g.startsWith(n))||'';
-  document.getElementById('f_cur').value=NNOM[nv]||'';
+  const nv2=NIVS.find(n=>g.startsWith(n))||'';
+  document.getElementById('f_cur').value=NNOM[nv2]||'';
 }
+
 function abrirNuevo(){
-  editRow=null; editHoja=null;
+  editRow=null; editHoja=null; filesPending={};
   document.getElementById('modTit').textContent='➕ Nuevo alumno en REGISTRO';
   document.getElementById('btnG').textContent='✅ Guardar';
+  document.getElementById('btnG').style.display='';
   limpF();
+  renderDocGrid({});
   document.getElementById('modAlumno').classList.add('on');
 }
-function editarR(row){
-  const a=registroData.find(x=>x._row===row); if(!a)return;
-  editRow=row; editHoja='registro';
-  document.getElementById('modTit').textContent='✏️ Editar: '+a['NOMBRE'];
+
+function editarA(row,hoja){
+  const arr=hoja==='registro'?registroData:datosData;
+  const a=arr.find(x=>x._row===row); if(!a)return;
+  editRow=row; editHoja=hoja; filesPending={};
+  document.getElementById('modTit').textContent='✏️ Editar: '+esc(a['NOMBRE']);
   document.getElementById('btnG').textContent='✅ Actualizar';
+  document.getElementById('btnG').style.display='';
   document.getElementById('f_nom').value=a['NOMBRE']||'';
   document.getElementById('f_cod').value=a['CODIGO']||'';
   document.getElementById('f_grp').value=String(a['CODIGO DE GRUPO']||'').trim().toUpperCase();
   document.getElementById('f_cur').value=a['CURSO']||'';
-  document.getElementById('f_fn').value=a['FECHA DE NACIMIENTO']?String(a['FECHA DE NACIMIENTO']).split('T')[0]:'';
+  const fnVal=a['FECHA DE NACIMIENTO']?String(a['FECHA DE NACIMIENTO']).split('T')[0]:'';
+  document.getElementById('f_fn').value=fnVal;
   document.getElementById('f_edad').value=a['EDAD']||'';
+  if(fnVal) calcEdad();
   document.getElementById('f_sex').value=a['SEXO']||'';
   document.getElementById('f_tal').value=a['TALLA']||'';
   document.getElementById('f_mad').value=a['MADRE DE FAMILIA']||'';
   document.getElementById('f_tel').value=a['TELEFONO']||'';
+  document.getElementById('f_pap').value=a['PAPA']||'';
+  document.getElementById('f_telp').value=a['TELEFONO PAPA']||'';
+  document.getElementById('f_pad').value=a['PADRINO']||'';
+  document.getElementById('f_padtel').value=a['TEL PADRINO']||'';
+  document.getElementById('f_mad2').value=a['MADRINA']||'';
+  document.getElementById('f_mad2tel').value=a['TEL MADRINA']||'';
   document.getElementById('f_cat').value=a['CATEQUISTA']||'';
   document.getElementById('f_ca2').value=a['CATEQUISTA 2']||'';
   document.getElementById('f_dia').value=a['DIA']||'';
@@ -462,60 +635,84 @@ function editarR(row){
   document.getElementById('f_pag').value=a['PAGO']||'';
   const ca=cant(a);
   document.getElementById('f_can').value=ca>0?ca:'';
+  renderDocGrid(a);
   document.getElementById('modAlumno').classList.add('on');
 }
+
 function limpF(){
-  ['f_nom','f_cod','f_cur','f_fn','f_edad','f_tal','f_mad','f_tel','f_cat','f_ca2','f_hor','f_san','f_ubi','f_can'].forEach(id=>document.getElementById(id).value='');
+  ['f_nom','f_cod','f_cur','f_fn','f_edad','f_tal','f_mad','f_tel',
+   'f_pap','f_telp','f_pad','f_padtel','f_mad2','f_mad2tel',
+   'f_cat','f_ca2','f_hor','f_san','f_ubi','f_can'].forEach(id=>document.getElementById(id).value='');
   ['f_grp','f_sex','f_dia','f_pag'].forEach(id=>document.getElementById(id).value='');
 }
-function cModal(){ document.getElementById('modAlumno').classList.remove('on'); }
-function guardarAlumno(){
+
+function cModal(){
+  document.getElementById('modAlumno').classList.remove('on');
+  filesPending={};
+}
+
+async function guardarAlumno(){
   const nom=document.getElementById('f_nom').value.trim();
   const grp=document.getElementById('f_grp').value;
   if(!nom||!grp){ toast('Nombre y grupo requeridos','err'); return; }
   const btn=document.getElementById('btnG');
   btn.textContent='Guardando...'; btn.disabled=true;
+
+  // Subir archivos pendientes a Drive
+  const codigo=document.getElementById('f_cod').value.trim()||nom.replace(/ /g,'_').slice(0,20);
+  let docUrls={};
+  if(Object.keys(filesPending).length>0){
+    toast('📤 Subiendo documentos...','');
+    docUrls=await subirArchivosDrive(editRow||'nuevo', codigo);
+  }
+
   const ca=parseFloat(document.getElementById('f_can').value)||0;
   const payload={
     action: editRow?'actualizarRegistro':'inscribirNuevo',
-    _row: editRow,
+    _row: editRow, _hoja: editHoja,
     CODIGO_GRUPO:grp, NOMBRE:nom,
     CURSO:document.getElementById('f_cur').value,
-    CODIGO:document.getElementById('f_cod').value,
-    CATEQUISTA:document.getElementById('f_cat').value,
-    CATEQUISTA2:document.getElementById('f_ca2').value,
-    MADRE:document.getElementById('f_mad').value,
-    TELEFONO:document.getElementById('f_tel').value,
+    CODIGO:codigo,
     FECHA_NAC:document.getElementById('f_fn').value,
     EDAD:document.getElementById('f_edad').value,
     SEXO:document.getElementById('f_sex').value,
     TALLA:document.getElementById('f_tal').value,
+    MADRE:document.getElementById('f_mad').value,
+    TELEFONO:document.getElementById('f_tel').value,
+    PAPA:document.getElementById('f_pap').value,
+    TELEFONO_PAPA:document.getElementById('f_telp').value,
+    PADRINO:document.getElementById('f_pad').value,
+    TEL_PADRINO:document.getElementById('f_padtel').value,
+    MADRINA:document.getElementById('f_mad2').value,
+    TEL_MADRINA:document.getElementById('f_mad2tel').value,
+    CATEQUISTA:document.getElementById('f_cat').value,
+    CATEQUISTA2:document.getElementById('f_ca2').value,
     DIA:document.getElementById('f_dia').value,
     HORA:document.getElementById('f_hor').value,
     SANTO_GRUPO:document.getElementById('f_san').value,
     UBICACION:document.getElementById('f_ubi').value,
     PAGO:document.getElementById('f_pag').value,
-    CANTIDAD:ca
+    CANTIDAD:ca,
+    ...docUrls
   };
+
   post(payload,function(r){
     btn.textContent='✅ Guardar'; btn.disabled=false;
-    if(r.success){ toast('✅ '+r.message,'ok'); cModal(); cargarRegistro(); }
+    if(r.success){ toast('✅ '+r.message,'ok'); cModal(); if(editHoja==='registro'||!editHoja) cargarRegistro(); else cargarDatos(); }
     else toast('❌ '+(r.error||'Error'),'err');
   },function(){ btn.textContent='✅ Guardar'; btn.disabled=false; toast('❌ Error conexión','err'); });
 }
 
-// ════════════════ DASHBOARD ════════════════
+// ── DASHBOARD ──
 function cargarDashboard(){
   document.getElementById('dashContent').innerHTML='<div class="msg">⏳ Cargando...</div>';
   gas('getDashboard',{},function(d){
-    if(!d||d.error){ document.getElementById('dashContent').innerHTML='<div class="msg">Error: '+(d&&d.error||'sin respuesta')+'</div>'; return; }
-    dashData=d;
-    renderDash(d);
-  },function(e){ document.getElementById('dashContent').innerHTML='<div class="msg">Error: '+e+'</div>'; });
+    if(!d||d.error){ document.getElementById('dashContent').innerHTML='<div class="msg">Error</div>'; return; }
+    dashData=d; renderDash(d);
+  },e=>{ document.getElementById('dashContent').innerHTML='<div class="msg">Error: '+e+'</div>'; });
 }
 
 function renderDash(d){
-  // Tarjetas de pago
   const phtml='<div class="pcards">'
     +'<div class="pcard" style="border-color:#16a34a" onclick="verPagos(\'pagados\')">'
       +'<div class="pnum" style="color:#16a34a">'+d.totalPagados+'</div><div class="plbl">✅ Pagados</div>'
@@ -530,149 +727,119 @@ function renderDash(d){
       +'<div class="pnum" style="color:#7c3aed">'+d.totalExentos+'</div><div class="plbl">🙏 Exentos</div>'
     +'</div>'
     +'<div class="pcard" style="border-color:#0f766e" onclick="verPagos(\'conCantidad\')">'
-      +'<div class="pnum" style="color:#0f766e;font-size:20px">$'+d.totalRecaudado.toLocaleString('es-MX',{minimumFractionDigits:2})+'</div><div class="plbl">💰 Recaudado</div>'
+      +'<div class="pnum" style="color:#0f766e;font-size:18px">$'+d.totalRecaudado.toLocaleString('es-MX',{minimumFractionDigits:2})+'</div><div class="plbl">💰 Recaudado</div>'
     +'</div>'
     +'<div class="pcard" style="border-color:#64748b;cursor:default">'
       +'<div class="pnum" style="color:#64748b">'+d.total+'</div>'
-      +'<div class="plbl">👦 Total<br><span style="font-size:10px">Datos:'+d.totalDatos+' / Reg:'+d.totalRegistro+'</span></div>'
+      +'<div class="plbl">👦 Total<br><span style="font-size:9px">D:'+d.totalDatos+' R:'+d.totalRegistro+'</span></div>'
     +'</div>'
   +'</div>';
 
-  // Barra progreso
   const pct=d.total?(d.totalPagados/d.total*100):0;
-  const barra='<div class="card" style="padding:12px 16px;margin-bottom:18px">'
-    +'<div style="display:flex;justify-content:space-between;margin-bottom:5px;font-size:12px;font-weight:700">'
-      +'<span>Progreso cobro</span><span style="color:var(--verde)">'+d.totalPagados+' / '+d.total+'</span>'
-    +'</div>'
-    +'<div style="background:var(--borde);border-radius:6px;height:10px;overflow:hidden;display:flex">'
+  const barra='<div class="card" style="padding:11px 15px;margin-bottom:16px">'
+    +'<div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:12px;font-weight:700"><span>Cobro</span><span style="color:var(--ve)">'+d.totalPagados+'/'+d.total+'</span></div>'
+    +'<div style="background:var(--bo);border-radius:6px;height:9px;overflow:hidden;display:flex">'
       +'<div style="width:'+pct.toFixed(1)+'%;background:#16a34a"></div>'
       +'<div style="width:'+(d.total?(d.totalPendientes/d.total*100):0).toFixed(1)+'%;background:#f59e0b"></div>'
       +'<div style="width:'+(d.total?(d.totalExentos/d.total*100):0).toFixed(1)+'%;background:#7c3aed"></div>'
     +'</div>'
-    +'<div style="display:flex;gap:12px;margin-top:5px;font-size:10px;font-weight:700">'
-      +'<span style="color:#16a34a">■ Pagado</span><span style="color:#f59e0b">■ Pendiente</span><span style="color:#7c3aed">■ Exento</span><span style="color:#dc2626">■ Sin registro</span>'
+    +'<div style="display:flex;gap:10px;margin-top:4px;font-size:10px;font-weight:700">'
+      +'<span style="color:#16a34a">■ Pagado</span><span style="color:#f59e0b">■ Pendiente</span><span style="color:#7c3aed">■ Exento</span><span style="color:#dc2626">■ Sin reg.</span>'
     +'</div>'
   +'</div>';
 
-  // Grupos
   let grupos='';
-  NIVS.forEach(nv=>{
-    const col=NCOL[nv], gs=GRUPOS[nv];
+  NIVS.forEach(nv2=>{
+    const col=NCOL[nv2], gs=GRUPOS[nv2];
     const tarj=gs.map(g=>{
       const info=d.porGrupo[g]||{count:0,pagados:0,pendientes:0,sinPago:0,totalCantidad:0};
       const pct2=info.count/20*100;
-      const cls=info.count>=20?'lleno':info.count>=16?'casi':'';
-      return '<div class="gcard '+cls+'" onclick="verGrupo(\''+g+'\')">'
+      return '<div class="gcard '+(info.count>=20?'lleno':info.count>=16?'casi':'')+'" onclick="verGrupo(\''+g+'\')">'
         +'<div class="gname" style="color:'+col+'">'+g+'</div>'
-        +'<div class="gnum" style="color:'+col+'">'+info.count+'<span style="font-size:12px;color:var(--txt2)">/20</span></div>'
+        +'<div class="gnum" style="color:'+col+'">'+info.count+'<span style="font-size:11px;color:var(--t2)">/20</span></div>'
         +'<div class="bbar"><div class="bfill" style="width:'+Math.min(pct2,100)+'%;background:'+(info.count>=20?'#dc2626':info.count>=16?'#f59e0b':'#16a34a')+'"></div></div>'
-        +(info.count>0?'<div style="display:flex;gap:3px;margin-top:5px;flex-wrap:wrap">'
-          +(info.pagados?'<span style="background:#dcfce7;color:#16a34a;padding:1px 5px;border-radius:8px;font-size:10px;font-weight:800">✅'+info.pagados+'</span>':'')
-          +(info.pendientes?'<span style="background:#fef3c7;color:#d97706;padding:1px 5px;border-radius:8px;font-size:10px;font-weight:800">⏳'+info.pendientes+'</span>':'')
-          +(info.sinPago?'<span style="background:#fee2e2;color:#dc2626;padding:1px 5px;border-radius:8px;font-size:10px;font-weight:800">❌'+info.sinPago+'</span>':'')
-          +(info.totalCantidad>0?'<span style="background:#f0fdf4;color:#0f766e;padding:1px 5px;border-radius:8px;font-size:10px;font-weight:800">$'+info.totalCantidad.toLocaleString('es-MX',{minimumFractionDigits:0})+'</span>':'')
+        +(info.count>0?'<div style="display:flex;gap:2px;margin-top:4px;flex-wrap:wrap">'
+          +(info.pagados?'<span style="background:#dcfce7;color:#16a34a;padding:1px 4px;border-radius:6px;font-size:9px;font-weight:800">✅'+info.pagados+'</span>':'')
+          +(info.pendientes?'<span style="background:#fef3c7;color:#d97706;padding:1px 4px;border-radius:6px;font-size:9px;font-weight:800">⏳'+info.pendientes+'</span>':'')
+          +(info.sinPago?'<span style="background:#fee2e2;color:#dc2626;padding:1px 4px;border-radius:6px;font-size:9px;font-weight:800">❌'+info.sinPago+'</span>':'')
+          +(info.totalCantidad>0?'<span style="background:#f0fdf4;color:#0f766e;padding:1px 4px;border-radius:6px;font-size:9px;font-weight:800">$'+info.totalCantidad.toFixed(0)+'</span>':'')
         +'</div>':'')
       +'</div>';
     }).join('');
-    grupos+='<div style="margin-bottom:22px">'
-      +'<div style="font-family:\'Fredoka One\',cursive;font-size:17px;color:'+col+';margin-bottom:8px">'+NNOM[nv]+' <span style="font-size:12px;font-family:Nunito,sans-serif;color:var(--txt2)">('+gs.length+' grupos)</span></div>'
-      +'<div class="ggrid">'+tarj+'</div>'
-    +'</div>';
+    grupos+='<div style="margin-bottom:20px">'
+      +'<div style="font-family:\'Fredoka One\',cursive;font-size:16px;color:'+col+';margin-bottom:7px">'+NNOM[nv2]+' <span style="font-size:11px;font-family:Nunito,sans-serif;color:var(--t2)">('+gs.length+' grupos)</span></div>'
+      +'<div class="ggrid">'+tarj+'</div></div>';
   });
-
   document.getElementById('dashContent').innerHTML=phtml+barra+grupos;
 }
 
 function verGrupo(g){
-  if(!dashData||!dashData.porGrupo[g]) return;
+  if(!dashData||!dashData.porGrupo[g])return;
   const info=dashData.porGrupo[g];
-  const nv=NIVS.find(n=>g.startsWith(n))||'COM';
-  document.getElementById('modGH').style.background=NCOL[nv];
-  document.getElementById('modGTit').textContent='Grupo '+g+' ('+info.count+'/20) — $'+info.totalCantidad.toLocaleString('es-MX',{minimumFractionDigits:2});
-  const body=document.getElementById('modGB');
-  if(!info.alumnos||!info.alumnos.length){
-    body.innerHTML='<p style="text-align:center;padding:20px;color:var(--txt2)">Sin alumnos</p>'; }
-  else {
-    body.innerHTML=info.alumnos.map(a=>{
+  const nv2=NIVS.find(n=>g.startsWith(n))||'COM';
+  document.getElementById('modGH').style.background=NCOL[nv2];
+  document.getElementById('modGTit').textContent=g+' ('+info.count+'/20) — $'+info.totalCantidad.toLocaleString('es-MX',{minimumFractionDigits:2});
+  document.getElementById('modGB').innerHTML=(!info.alumnos||!info.alumnos.length)
+    ?'<p style="text-align:center;padding:18px;color:var(--t2)">Sin alumnos</p>'
+    :info.alumnos.map(a=>{
       const p=a.pago, ca=a.cantidad;
-      return '<div style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--borde)">'
-        +'<div>'
-          +'<div style="font-weight:800;font-size:13px">'+esc(a.nombre)+'</div>'
-          +'<div style="font-size:11px;color:var(--txt2)">'+esc(a.madre)+' · '+esc(a.tel)+'</div>'
-        +'</div>'
+      return '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bo)">'
+        +'<div><div style="font-weight:800;font-size:13px">'+esc(a.nombre)+'</div>'
+          +'<div style="font-size:11px;color:var(--t2)">'+esc(a.madre)+' · '+esc(a.tel)+'</div></div>'
         +'<div style="text-align:right;margin-left:10px;flex-shrink:0">'
           +'<div style="color:'+pcol(p)+';font-weight:800;font-size:12px">'+(p||'Sin pago')+'</div>'
-          +(ca>0?'<div style="font-weight:900;color:#0f766e;font-size:14px">$'+ca.toFixed(2)+'</div>':'')
-          +'<button onclick="tkDesdeGrupo('+a._row+',\''+a._hoja+'\')" style="margin-top:3px;padding:3px 7px;background:var(--doradoc);color:#92400e;border:none;border-radius:6px;cursor:pointer;font-size:10px;font-weight:700;font-family:Nunito,sans-serif">🎫 Ticket</button>'
-        +'</div>'
-      +'</div>';
+          +(ca>0?'<div style="font-weight:900;color:#0f766e;font-size:13px">$'+ca.toFixed(2)+'</div>':'')
+          +'<button onclick="tkDesdeGrupo('+a._row+',\''+a._hoja+'\')" style="margin-top:2px;padding:2px 6px;background:var(--doc);color:#92400e;border:none;border-radius:5px;cursor:pointer;font-size:10px;font-weight:700;font-family:Nunito,sans-serif">🎫</button>'
+        +'</div></div>';
     }).join('');
-  }
   document.getElementById('modGrupo').classList.add('on');
 }
 
-function tkDesdeGrupo(row, hoja){
-  document.getElementById('modGrupo').classList.remove('on');
-  setTimeout(()=>tkDesdeRow(row, hoja), 100);
-}
-
 function verPagos(tipo){
-  if(!dashData) return;
-  const pg=dashData.porGrupo||{};
+  if(!dashData)return;
   let lista=[];
-  Object.values(pg).forEach(g=>{ if(g.alumnos) lista=lista.concat(g.alumnos); });
-  const f={
-    pagados:   a=>a.pago==='Pagado',
-    pendientes:a=>a.pago==='Pendiente'||a.pago==='Parcial',
-    sinPago:   a=>!a.pago,
-    exentos:   a=>a.pago==='Exento',
-    conCantidad:a=>a.cantidad>0
-  };
+  Object.values(dashData.porGrupo||{}).forEach(g=>{ if(g.alumnos) lista=lista.concat(g.alumnos); });
+  const f={pagados:a=>a.pago==='Pagado',pendientes:a=>a.pago==='Pendiente'||a.pago==='Parcial',sinPago:a=>!a.pago,exentos:a=>a.pago==='Exento',conCantidad:a=>a.cantidad>0};
   const tits={pagados:'✅ Pagados',pendientes:'⏳ Pendientes',sinPago:'❌ Sin pago',exentos:'🙏 Exentos',conCantidad:'💰 Con cantidad'};
   lista=lista.filter(f[tipo]||(_=>true));
   document.getElementById('modPTit').textContent=(tits[tipo]||tipo)+' ('+lista.length+')';
   const bod=document.getElementById('modPBody');
-  if(!lista.length){ bod.innerHTML='<tr><td colspan="5" class="msg">Sin resultados</td></tr>'; }
-  else {
-    const tot=tipo==='conCantidad'?lista.reduce((s,a)=>s+a.cantidad,0):0;
-    bod.innerHTML=lista.map(a=>{
-      const nv2=NIVS.find(n=>a.grupo.startsWith(n))||'COM';
-      return '<tr>'
-        +'<td><span class="bg '+NCLS[nv2]+'">'+esc(a.grupo)+'</span></td>'
-        +'<td><strong>'+esc(a.nombre)+'</strong><br><span style="font-size:11px;color:var(--txt2)">'+esc(a.codigo)+'</span></td>'
-        +'<td>'+esc(a.madre)+'<br><span style="font-size:11px;color:var(--txt2)">'+esc(a.tel)+'</span></td>'
-        +'<td><span style="color:'+pcol(a.pago)+';font-weight:800;font-size:12px">'+(a.pago||'—')+'</span></td>'
-        +'<td style="font-weight:800;color:#0f766e">'+(a.cantidad>0?'$'+a.cantidad.toFixed(2):'—')+'</td>'
-      +'</tr>';
-    }).join('')+(tot>0?'<tr style="background:#f0fdf4;font-weight:900"><td colspan="4" style="padding:10px">TOTAL</td><td style="color:#0f766e">$'+tot.toLocaleString('es-MX',{minimumFractionDigits:2})+'</td></tr>':'');
-  }
+  const tot=tipo==='conCantidad'?lista.reduce((s,a)=>s+a.cantidad,0):0;
+  bod.innerHTML=lista.map(a=>{
+    const nv2=NIVS.find(n=>a.grupo.startsWith(n))||'COM';
+    return '<tr><td><span class="bg '+NCLS[nv2]+'">'+esc(a.grupo)+'</span></td>'
+      +'<td><strong>'+esc(a.nombre)+'</strong><br><span style="font-size:11px;color:var(--t2)">'+esc(a.codigo)+'</span></td>'
+      +'<td>'+esc(a.madre)+'<br><span style="font-size:11px;color:var(--t2)">'+esc(a.tel)+'</span></td>'
+      +'<td><span style="color:'+pcol(a.pago)+';font-weight:800;font-size:12px">'+(a.pago||'—')+'</span></td>'
+      +'<td style="font-weight:800;color:#0f766e">'+(a.cantidad>0?'$'+a.cantidad.toFixed(2):'—')+'</td></tr>';
+  }).join('')+(tot>0?'<tr style="background:#f0fdf4;font-weight:900"><td colspan="4" style="padding:9px">TOTAL</td><td style="color:#0f766e">$'+tot.toLocaleString('es-MX',{minimumFractionDigits:2})+'</td></tr>':'');
   document.getElementById('modPagos').classList.add('on');
 }
 
-// ════════════════ TICKET ════════════════
+function tkDesdeGrupo(row,hoja){ document.getElementById('modGrupo').classList.remove('on'); setTimeout(()=>tkDesdeRow(row,hoja),100); }
+
+// ── TICKET ──
 function tkSearch(){
   const q=document.getElementById('tkBusq').value.trim();
   const cont=document.getElementById('tkRes');
   if(q.length<2){ cont.innerHTML=''; return; }
-  // Buscar en ambas hojas
   gas('buscarEnRegistro',{query:q},function(d){
     const lista=(d&&d.alumnos)||[];
-    if(!lista.length){ cont.innerHTML='<p style="font-size:12px;color:var(--txt2);padding:5px">Sin resultados en REGISTRO</p>'; return; }
+    if(!lista.length){ cont.innerHTML='<p style="font-size:12px;color:var(--t2);padding:5px">Sin resultados</p>'; return; }
     cont.innerHTML=lista.slice(0,8).map(a=>{
       const g=String(a['CODIGO DE GRUPO']||'').trim().toUpperCase();
       const nv2=NIVS.find(n=>g.startsWith(n))||'COM';
-      return '<div onclick="selTk('+a._row+',\'registro\')" style="padding:8px 10px;border-radius:7px;cursor:pointer;border:2px solid var(--borde);margin-bottom:5px" onmouseover="this.style.borderColor=\'var(--azulm)\';this.style.background=\'var(--azulc)\'" onmouseout="this.style.borderColor=\'var(--borde)\';this.style.background=\'#fff\'">'
+      return '<div onclick="selTk('+a._row+',\'registro\')" style="padding:7px 9px;border-radius:7px;cursor:pointer;border:2px solid var(--bo);margin-bottom:4px" onmouseover="this.style.borderColor=\'var(--azm)\';this.style.background=\'var(--azc)\'" onmouseout="this.style.borderColor=\'var(--bo)\';this.style.background=\'#fff\'">'
         +'<div style="font-weight:800;font-size:13px">'+esc(a['NOMBRE'])+'</div>'
-        +'<div style="font-size:11px;color:var(--txt2)"><span class="bg '+NCLS[nv2]+'">'+esc(g)+'</span> '+esc(a['CODIGO'])+'</div>'
+        +'<div style="font-size:11px;color:var(--t2)"><span class="bg '+NCLS[nv2]+'">'+esc(g)+'</span> '+esc(a['CODIGO'])+'</div>'
       +'</div>';
     }).join('');
   });
 }
 
-function selTk(row, hoja){
-  const arr = hoja==='registro' ? registroData : datosData;
-  const a = arr.find(x=>x._row===row);
-  if(!a) return;
+function selTk(row,hoja){
+  const arr=hoja==='registro'?registroData:datosData;
+  const a=arr.find(x=>x._row===row); if(!a)return;
   tkAlumno=a; tkAlumno._hoja=hoja;
   document.getElementById('tk_p').value=a['PAGO']||'Pagado';
   const ca=cant(a);
@@ -684,45 +851,40 @@ function selTk(row, hoja){
   renderTk();
 }
 
-function tkDesdeRow(row, hoja){
+function tkDesdeRow(row,hoja){
   goSec('ticket');
-  // Buscar en el array correcto
-  const arr = hoja==='registro' ? registroData : datosData;
-  const a = arr.find(x=>x._row===row);
-  if(a){ tkAlumno=a; tkAlumno._hoja=hoja; document.getElementById('tk_p').value=a['PAGO']||''; const ca=cant(a); document.getElementById('tk_c').value=ca>0?ca:''; renderTk(); }
+  const arr=hoja==='registro'?registroData:datosData;
+  const a=arr.find(x=>x._row===row);
+  if(a){ selTk(row,hoja); }
   else {
-    // Cargar desde GAS si no está en cache
-    const action = hoja==='registro' ? 'getRegistro' : 'getDatos';
-    gas(action,{},function(d){
+    gas(hoja==='registro'?'getRegistro':'getDatos',{},function(d){
       const lista=(d&&d.alumnos)||[];
+      if(hoja==='registro') registroData=lista; else datosData=lista;
       const found=lista.find(x=>x._row===row);
-      if(found){ if(hoja==='registro') registroData=lista; else datosData=lista; selTk(row,hoja); }
+      if(found) selTk(row,hoja);
     });
   }
 }
 
 function guardarPagoYCantidad(){
-  if(!tkAlumno) return;
+  if(!tkAlumno)return;
   const pago=document.getElementById('tk_p').value;
   const ca=parseFloat(document.getElementById('tk_c').value)||0;
   renderTk();
   const st=document.getElementById('tk_st');
-  st.innerHTML='<span style="color:var(--dorado)">💾 Guardando...</span>';
-  post({action:'actualizarPago', _row:tkAlumno._row, _hoja:tkAlumno._hoja, PAGO:pago, CANTIDAD:ca},
-    function(r){
-      if(r.success){
-        tkAlumno['PAGO']=pago; tkAlumno['CANTIDAD']=ca;
-        // Actualizar en arrays locales
-        [registroData,datosData].forEach(arr=>{ const x=arr.find(i=>i._row===tkAlumno._row); if(x){ x['PAGO']=pago; x['CANTIDAD']=ca; } });
-        st.innerHTML='<span style="color:var(--verde)">✅ Guardado — '+pago+(ca>0?' $'+ca.toFixed(2):'')+'</span>';
-        toast('💰 Guardado: '+esc(tkAlumno['NOMBRE']),'ok');
-      } else { st.innerHTML='<span style="color:var(--rojo)">❌ '+(r.error||'Error')+'</span>'; }
-    }
-  );
+  st.innerHTML='<span style="color:var(--do)">💾 Guardando...</span>';
+  post({action:'actualizarPago',_row:tkAlumno._row,_hoja:tkAlumno._hoja,PAGO:pago,CANTIDAD:ca},function(r){
+    if(r.success){
+      tkAlumno['PAGO']=pago; tkAlumno['CANTIDAD']=ca;
+      [registroData,datosData].forEach(arr=>{ const x=arr.find(i=>i._row===tkAlumno._row); if(x){ x['PAGO']=pago; x['CANTIDAD']=ca; } });
+      st.innerHTML='<span style="color:var(--ve)">✅ '+pago+(ca>0?' — $'+ca.toFixed(2):'')+'</span>';
+      toast('💰 Guardado: '+esc(tkAlumno['NOMBRE']),'ok');
+    } else { st.innerHTML='<span style="color:var(--ro)">❌ '+(r.error||'Error')+'</span>'; }
+  });
 }
 
 function renderTk(){
-  if(!tkAlumno) return;
+  if(!tkAlumno)return;
   const a=tkAlumno;
   const pago=document.getElementById('tk_p').value;
   const ca=parseFloat(document.getElementById('tk_c').value)||0;
@@ -732,51 +894,41 @@ function renderTk(){
   const rec=document.getElementById('tk_r').value||'—';
   const g=String(a['CODIGO DE GRUPO']||'').trim().toUpperCase();
   const nv2=NIVS.find(n=>g.startsWith(n))||'COM';
-  const col=NCOL[nv2];
-  const pc=pcol(pago);
+  const col=NCOL[nv2], pc=pcol(pago);
   const fem=fec?new Date(fec+'T12:00:00').toLocaleDateString('es-MX',{day:'2-digit',month:'long',year:'numeric'}):'—';
   const mon=ca>0?'$'+ca.toFixed(2):'$0.00';
   const emo={Pagado:'✅',Pendiente:'⏳',Parcial:'🔸',Exento:'🙏'}[pago]||'❌';
-
-  document.getElementById('tkPrev').innerHTML='<div id="tkC" style="max-width:350px;margin:0 auto;font-family:Nunito,sans-serif">'
+  document.getElementById('tkPrev').innerHTML='<div id="tkC" style="max-width:345px;margin:0 auto;font-family:Nunito,sans-serif">'
     +'<div style="border:2px solid '+col+';border-radius:12px;overflow:hidden">'
-      // Header
-      +'<div style="background:'+col+';padding:12px 15px;display:flex;align-items:center;justify-content:space-between">'
-        +'<div style="display:flex;align-items:center;gap:8px">'
-          +'<img src="'+LOGO+'" style="width:34px;height:34px;border-radius:7px;object-fit:contain">'
-          +'<div><div style="font-family:\'Fredoka One\',cursive;font-size:17px;color:#fff">CateKids</div>'
-            +'<div style="color:rgba(255,255,255,.8);font-size:10px">Misión Parroquial</div></div>'
+      +'<div style="background:'+col+';padding:11px 14px;display:flex;align-items:center;justify-content:space-between">'
+        +'<div style="display:flex;align-items:center;gap:7px">'
+          +'<img src="'+LOGO+'" style="width:32px;height:32px;border-radius:7px;object-fit:contain">'
+          +'<div><div style="font-family:\'Fredoka One\',cursive;font-size:16px;color:#fff">CateKids</div>'
+            +'<div style="color:rgba(255,255,255,.8);font-size:9px">Misión Parroquial</div></div>'
         +'</div>'
-        +'<div style="text-align:right">'
-          +'<div style="background:rgba(255,255,255,.2);color:#fff;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:800">COMPROBANTE</div>'
-          +'<div style="color:rgba(255,255,255,.75);font-size:10px;margin-top:2px">Folio: '+fol+'</div>'
-        +'</div>'
+        +'<div style="text-align:right"><div style="background:rgba(255,255,255,.2);color:#fff;padding:2px 7px;border-radius:5px;font-size:9px;font-weight:800">COMPROBANTE</div>'
+          +'<div style="color:rgba(255,255,255,.75);font-size:9px;margin-top:2px">Folio: '+fol+'</div></div>'
       +'</div>'
-      // Banda pago
-      +'<div style="background:'+pc+'18;border-bottom:2px solid '+pc+'44;padding:6px 14px;display:flex;justify-content:space-between;align-items:center">'
-        +'<span style="font-size:12px;font-weight:800;color:'+pc+'">'+emo+' '+pago+'</span>'
+      +'<div style="background:'+pc+'18;border-bottom:2px solid '+pc+'44;padding:5px 13px;display:flex;justify-content:space-between;align-items:center">'
+        +'<span style="font-size:11px;font-weight:800;color:'+pc+'">'+emo+' '+pago+'</span>'
         +'<span style="font-size:10px;color:#64748b">'+fem+'</span>'
       +'</div>'
-      // Body
-      +'<div style="padding:13px 15px;background:#fff">'
-        +'<div style="font-size:16px;font-weight:900;margin-bottom:3px">'+esc(a['NOMBRE'])+'</div>'
-        +'<div style="display:flex;gap:5px;margin-bottom:10px">'
-          +'<span class="bg '+NCLS[nv2]+'">'+g+'</span>'
-          +'<span style="background:#f1f5f9;color:#64748b;padding:2px 7px;border-radius:20px;font-size:11px">'+esc(a['CODIGO'])+'</span>'
-        +'</div>'
-        +'<div style="background:#f8fafc;border-radius:7px;padding:9px;margin-bottom:9px;font-size:11px">'
-          +'<div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:#64748b">Concepto:</span><span style="font-weight:700;max-width:55%;text-align:right">'+esc(con)+'</span></div>'
-          +'<div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:#64748b">Mamá/Papá:</span><span style="font-weight:700">'+esc(a['MADRE DE FAMILIA'])+'</span></div>'
-          +'<div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="color:#64748b">Catequista:</span><span style="font-weight:700">'+esc(a['CATEQUISTA'])+'</span></div>'
+      +'<div style="padding:12px 14px;background:#fff">'
+        +'<div style="font-size:15px;font-weight:900;margin-bottom:3px">'+esc(a['NOMBRE'])+'</div>'
+        +'<div style="display:flex;gap:5px;margin-bottom:9px"><span class="bg '+NCLS[nv2]+'">'+g+'</span>'
+          +'<span style="background:#f1f5f9;color:#64748b;padding:2px 6px;border-radius:20px;font-size:10px">'+esc(a['CODIGO'])+'</span></div>'
+        +'<div style="background:#f8fafc;border-radius:7px;padding:8px;margin-bottom:8px;font-size:11px">'
+          +'<div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:#64748b">Concepto:</span><span style="font-weight:700;max-width:55%;text-align:right">'+esc(con)+'</span></div>'
+          +'<div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:#64748b">Mamá/Papá:</span><span style="font-weight:700">'+esc(a['MADRE DE FAMILIA'])+'</span></div>'
+          +'<div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:#64748b">Catequista:</span><span style="font-weight:700">'+esc(a['CATEQUISTA'])+'</span></div>'
           +'<div style="display:flex;justify-content:space-between"><span style="color:#64748b">Día/Hora:</span><span style="font-weight:700">'+(a['DIA']||'—')+' '+(a['HORA']||'')+'</span></div>'
         +'</div>'
-        +'<div style="background:'+pc+'11;border:2px dashed '+pc+';border-radius:7px;padding:10px 13px;display:flex;justify-content:space-between;align-items:center">'
+        +'<div style="background:'+pc+'11;border:2px dashed '+pc+';border-radius:7px;padding:9px 12px;display:flex;justify-content:space-between;align-items:center">'
           +'<div><div style="font-size:9px;color:#64748b;font-weight:700;text-transform:uppercase">Monto</div>'
-            +'<div style="font-size:26px;font-weight:900;color:'+pc+'">'+mon+'</div>'
-          +'</div>'
-          +'<div style="font-size:24px">'+emo+'</div>'
+            +'<div style="font-size:24px;font-weight:900;color:'+pc+'">'+mon+'</div></div>'
+          +'<div style="font-size:22px">'+emo+'</div>'
         +'</div>'
-        +'<div style="margin-top:9px;display:flex;justify-content:space-between">'
+        +'<div style="margin-top:8px;display:flex;justify-content:space-between">'
           +'<div style="font-size:10px;color:#64748b"><span style="font-weight:700">Recibió:</span> '+esc(rec)+'</div>'
           +'<div style="font-size:9px;color:#94a3b8">CateKids © 2025</div>'
         +'</div>'
@@ -789,21 +941,59 @@ function impTk(n){
   if(!tkAlumno){ toast('Selecciona un alumno primero','err'); return; }
   renderTk();
   setTimeout(function(){
-    const tc=document.getElementById('tkC');
-    if(!tc) return;
+    const tc=document.getElementById('tkC'); if(!tc)return;
     const estilos='body{margin:14px;background:#fff;font-family:Nunito,sans-serif}.bg{display:inline-block;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:800}.bi{background:#dbeafe;color:#1d4ed8}.bc{background:#ede9fe;color:#6d28d9}.bco{background:#dcfce7;color:#15803d}.bp2{background:#ffedd5;color:#9a3412}.bps{background:#fef3c7;color:#92400e}@media print{body{margin:0}}';
-    const win=window.open('','_blank','width=460,height:'+(n===2?'800':'600'));
+    const win=window.open('','_blank','width=460,height:'+(n===2?'800':'620'));
     let body=tc.outerHTML;
-    if(n===2) body=body+'<div style="text-align:center;margin:14px 0;font-size:11px;color:#94a3b8;letter-spacing:3px;border-top:2px dashed #e2e8f0;padding-top:12px">✂ CORTAR AQUÍ ✂</div>'+body;
+    if(n===2) body=body+'<div style="text-align:center;margin:12px 0;font-size:10px;color:#94a3b8;letter-spacing:3px;border-top:2px dashed #e2e8f0;padding-top:11px">✂ CORTAR ✂</div>'+body;
     win.document.write('<html><head><title>Ticket CateKids</title>'
       +'<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">'
-      +'<style>'+estilos+'</style>'
-      +'</head><body>'+body+'<script>window.onload=function(){window.print()}<\/script></body></html>');
+      +'<style>'+estilos+'</style></head><body>'+body
+      +'<script>window.onload=function(){window.print()}<\/script></body></html>');
     win.document.close();
   },80);
 }
 
-// ════════════════ TOAST ════════════════
+// ── EXPORTAR ──
+function exportarExcel(fuente){
+  const data=fuente==='registro'?registroData:datosData;
+  if(!data.length){ toast('Sin datos para exportar','err'); return; }
+  const campos=['CODIGO DE GRUPO','NOMBRE','CURSO','CODIGO','CATEQUISTA','MADRE DE FAMILIA','TELEFONO',
+    'PAPA','TELEFONO PAPA','PADRINO','MADRINA','FECHA DE NACIMIENTO','EDAD','SEXO','TALLA',
+    'DIA','HORA','PAGO','CANTIDAD','ACTA DE NACIMIENTO','BOLETA DE BAUTIZO','BOLETA DE CONFIRMACION','INE'];
+  const rows=data.map(a=>campos.map(k=>a[k]||''));
+  const ws=XLSX.utils.aoa_to_sheet([campos,...rows]);
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,fuente.toUpperCase());
+  XLSX.writeFile(wb,'CateKids_'+fuente+'_'+new Date().toISOString().split('T')[0]+'.xlsx');
+  toast('✅ Excel descargado','ok');
+}
+
+function exportarPDF(fuente){
+  const data=fuente==='registro'?registroData:datosData;
+  if(!data.length){ toast('Sin datos para exportar','err'); return; }
+  const campos=['NOMBRE','CODIGO DE GRUPO','CATEQUISTA','MADRE DE FAMILIA','TELEFONO','PAGO','CANTIDAD'];
+  const filas=data.map(a=>'<tr>'
+    +campos.map(k=>'<td style="padding:5px 8px;border:1px solid #e2e8f0;font-size:11px">'+esc(a[k])+'</td>').join('')
+  +'</tr>').join('');
+  const hoy=new Date().toLocaleDateString('es-MX',{day:'2-digit',month:'long',year:'numeric'});
+  const win=window.open('','_blank','width=900,height=700');
+  win.document.write('<html><head><title>CateKids '+fuente+'</title>'
+    +'<style>body{font-family:Arial,sans-serif;margin:20px}h2{color:#1a3a5c}table{width:100%;border-collapse:collapse}th{background:#1a3a5c;color:#fff;padding:7px 8px;font-size:12px;text-align:left}@media print{body{margin:0}}</style>'
+    +'</head><body>'
+    +'<div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">'
+      +'<img src="'+LOGO+'" style="width:50px;height:50px;border-radius:9px;object-fit:contain">'
+      +'<div><h2 style="margin:0">CateKids — '+fuente.toUpperCase()+' ('+data.length+' alumnos)</h2>'
+        +'<p style="margin:2px 0;font-size:12px;color:#64748b">Misión Parroquial El Señor de la Misericordia · '+hoy+'</p></div>'
+    +'</div>'
+    +'<table><thead><tr>'+campos.map(k=>'<th>'+k+'</th>').join('')+'</tr></thead>'
+    +'<tbody>'+filas+'</tbody></table>'
+    +'<script>window.onload=function(){window.print()}<\/script>'
+    +'</body></html>');
+  win.document.close();
+}
+
+// ── TOAST ──
 function toast(msg,tipo){
   const el=document.getElementById('toast');
   el.textContent=msg;
@@ -811,10 +1001,9 @@ function toast(msg,tipo){
   setTimeout(()=>{ el.className=''; },3500);
 }
 
-// ════════════════ INIT ════════════════
+// ── INIT ──
 document.addEventListener('DOMContentLoaded',function(){
-  const hoy=new Date();
-  document.getElementById('tk_d').value=hoy.toISOString().split('T')[0];
+  document.getElementById('tk_d').value=new Date().toISOString().split('T')[0];
   document.getElementById('tk_f').value='TK-'+Date.now().toString().slice(-6);
   cargarDatos();
 });
